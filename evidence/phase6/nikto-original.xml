@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE niktoscans PUBLIC "SYSTEM" "/var/lib/nikto/templates/nikto.dtd">
+
+<niktoscans>
+  <niktoscan hoststest="0" options="-h http://192.168.60.1:4000 -o /home/kali/nodegoat-phase6/nikto-original.xml -Format xml" version="2.6.1" scanstart="Tue Sep 22 00:17:03 2026" scanend="Tue Sep 22 00:17:04 2026" scanelapsed="0" nxmlversion="1.2">
+    <scandetails targetip="192.168.60.1" targethostname="192.168.60.1" targetport="4000" targetbanner="" starttime="2026-09-22 00:17:04" sitename="http://192.168.60.1:4000/" siteip="http://192.168.60.1:4000/" hostheader="192.168.60.1" errors="0" checks="7240">
+      <item id="000287" method="GET">
+        <description>/: Retrieved x-powered-by header: Express.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references></references>
+      </item>
+      <item id="999990" method="OPTIONS">
+        <description>OPTIONS: Allowed HTTP Methods: GET, HEAD .</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references></references>
+      </item>
+      <item id="013587" method="GET">
+        <description>/: Suggested security header missing: permissions-policy.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy</references>
+      </item>
+      <item id="013587" method="GET">
+        <description>/: Suggested security header missing: strict-transport-security.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security</references>
+      </item>
+      <item id="013587" method="GET">
+        <description>/: Suggested security header missing: content-security-policy.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references>https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</references>
+      </item>
+      <item id="013587" method="GET">
+        <description>/: Suggested security header missing: x-content-type-options.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options</references>
+      </item>
+      <item id="013587" method="GET">
+        <description>/: Suggested security header missing: referrer-policy.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references>https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy</references>
+      </item>
+      <item id="001736" method="GET">
+        <description>/login/: This might be interesting.</description>
+        <uri>/login/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references></references>
+      </item>
+      <item id="007342" method="GET">
+        <description>/: X-Frame-Options header is deprecated and was replaced with the Content-Security-Policy HTTP header with the frame-ancestors directive.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references>https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options</references>
+      </item>
+      <item id="007352" method="GET">
+        <description>/: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.</description>
+        <uri>/</uri>
+        <namelink></namelink>
+        <iplink></iplink>
+        <references>https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/</references>
+      </item>
+      <statistics elapsed="587" itemsfound="10" itemstested="7240" endtime="2026-09-22 00:26:51" />
+    </scandetails>
+  </niktoscan>
+</niktoscans>
