@@ -1,0 +1,8 @@
+C:\Users\Nimesh\OneDrive\Desktop\NodeGoat-master> $web | Group-Object Severity | Select-Object Name,Count
+
+Name     Count
+----     -----
+HIGH        69
+MEDIUM      43
+CRITICAL    13
+LOW         13

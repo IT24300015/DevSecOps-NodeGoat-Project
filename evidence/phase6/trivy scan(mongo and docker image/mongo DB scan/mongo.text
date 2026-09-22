@@ -1,0 +1,9 @@
+C:\Users\Nimesh\OneDrive\Desktop\NodeGoat-master> $mongo | Group-Object Severity | Select-Object Name,Count
+
+Name     Count
+----     -----
+MEDIUM     353
+HIGH       312
+UNKNOWN     17
+CRITICAL     9
+LOW         26
