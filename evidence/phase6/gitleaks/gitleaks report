@@ -1,0 +1,32 @@
+PS C:\Users\Nimesh\OneDrive\Desktop\NodeGoat-master> Get-ChildItem .\evidence\phase6\gitleaks-original.json
+
+
+    Directory: C:\Users\Nimesh\OneDrive\Desktop\NodeGoat-master\evidence\phase6
+
+
+Mode                 LastWriteTime         Length Name                                                                            
+----                 -------------         ------ ----                                                                            
+-a----         9/23/2026  12:59 AM           4389 gitleaks-original.json                                                          
+
+
+PS C:\Users\Nimesh\OneDrive\Desktop\NodeGoat-master> $data = Get-Content .\evidence\phase6\gitleaks-original.json | ConvertFrom-Json
+>> $data | Select-Object Description,RuleID,File,StartLine,Commit
+
+
+Description : Identified a Private Key, which may compromise cryptographic security and sensitive data encryption.
+RuleID      : private-key
+File        : artifacts/cert/server.key
+StartLine   : 1
+Commit      : 2560957c37cca534cfd17627a19d4be977bde38e
+
+Description : Detected a Generic API Key, potentially exposing access to various services and sensitive operations.
+RuleID      : generic-api-key
+File        : config/env/development.js
+StartLine   : 6
+Commit      : 2560957c37cca534cfd17627a19d4be977bde38e
+
+Description : Detected a Generic API Key, potentially exposing access to various services and sensitive operations.
+RuleID      : generic-api-key
+File        : config/env/test.js
+StartLine   : 6
+Commit      : 2560957c37cca534cfd17627a19d4be977bde38e
