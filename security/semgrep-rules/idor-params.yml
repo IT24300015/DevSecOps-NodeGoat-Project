@@ -1,0 +1,11 @@
+rules:
+  - id: nodegoat-idor-req-params-userid
+    languages: [javascript]
+    message: IDOR - userId taken from req.params instead of req.session
+    severity: ERROR
+    pattern-regex: 'req\.params'
+    metadata:
+      cwe: "CWE-639"
+      owasp: "A01:2021 - Broken Access Control"
+      confidence: HIGH
+      category: security
