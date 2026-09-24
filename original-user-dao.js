@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt-nodejs");
+﻿const bcrypt = require("bcrypt-nodejs");
 
 /* The UserDAO must be constructed with a connected database object */
 function UserDAO(db) {
@@ -17,14 +17,18 @@ function UserDAO(db) {
     this.addUser = (userName, firstName, lastName, password, email, callback) => {
 
         // Create user document
-       const user = {
-             userName,
+        const user = {
+            userName,
             firstName,
             lastName,
             benefitStartDate: this.getRandomFutureDate(),
-    // Fix for A2-1: Hash password with bcrypt before storing
-    password: bcrypt.hashSync(password, bcrypt.genSaltSync())
-};
+            password //received from request param
+            /*
+            // Fix for A2-1 - Broken Auth
+            // Stores password  in a safer way using one way encryption and salt hashing
+            password: bcrypt.hashSync(password, bcrypt.genSaltSync())
+            */
+        };
 
         // Add email if set
         if (email) {
@@ -50,12 +54,17 @@ function UserDAO(db) {
         return `${year}-${("0" + month).slice(-2)}-${("0" + day).slice(-2)}`;
     };
 
+    this.validateLogin = (userName, password, callback) => {
 
-    const comparePassword = (fromDB, fromUser) => {
-    // Fix for A2-Broken Auth: bcrypt comparison instead of plaintext
-    const comparePassword = (fromDB, fromUser) => {
-    return bcrypt.compareSync(fromDB, fromUser);
-    };
+        // Helper function to compare passwords
+        const comparePassword = (fromDB, fromUser) => {
+            return fromDB === fromUser;
+            /*
+            // Fix for A2-Broken Auth
+            // compares decrypted password stored in this.addUser()
+            return bcrypt.compareSync(fromDB, fromUser);
+            */
+        };
 
         // Callback to pass to MongoDB that validates a user document
         const validateUserDoc = (err, user) => {
@@ -111,4 +120,4 @@ function UserDAO(db) {
     };
 }
 
-module.exports = { UserDAO };
+module.exports = {┬áUserDAO };
