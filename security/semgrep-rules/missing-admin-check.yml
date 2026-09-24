@@ -1,0 +1,15 @@
+rules:
+  - id: nodegoat-missing-admin-check-benefits
+    languages: [javascript]
+    message: >-
+      Missing admin authorization check on benefits route. Non-admin users
+      can access and modify admin-only functionality.
+    severity: ERROR
+    patterns:
+      - pattern: |
+          app.$METHOD("/benefits", isLoggedIn, $HANDLER)
+    metadata:
+      cwe: "CWE-862"
+      owasp: "A01:2021 - Broken Access Control"
+      confidence: HIGH
+      category: security
