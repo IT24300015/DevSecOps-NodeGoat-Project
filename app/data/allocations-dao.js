@@ -55,59 +55,54 @@ const AllocationsDAO = function(db){
     };
 
     this.getByUserIdAndThreshold = (userId, threshold, callback) => {
-        const parsedUserId = parseInt(userId);
+    const parsedUserId = parseInt(userId);
 
-        const searchCriteria = () => {
-
-            if (threshold) {
-                /*
-                // Fix for A1 - 2 NoSQL Injection - escape the threshold parameter properly
-                // Fix this NoSQL Injection which doesn't sanitze the input parameter 'threshold' and allows attackers
-                // to inject arbitrary javascript code into the NoSQL query:
-                // 1. 0';while(true){}'
-                // 2. 1'; return 1 == '1
-                // Also implement fix in allocations.html for UX.                             
-                const parsedThreshold = parseInt(threshold, 10);
-                
-                if (parsedThreshold >= 0 && parsedThreshold <= 99) {
-                    return {$where: `this.userId == ${parsedUserId} && this.stocks > ${parsedThreshold}`};
-                }
-                throw `The user supplied threshold: ${parsedThreshold} was not valid.`;
-                */
-                return {
-                    $where: `this.userId == ${parsedUserId} && this.stocks > '${threshold}'`
-                };
+    const searchCriteria = () => {
+        if (threshold) {
+            // FIX: Validate threshold as a number before using it in the query
+            const parsedThreshold = parseInt(threshold, 10);
+            
+            // FIX: Reject invalid input (non-numeric or out of range)
+            if (isNaN(parsedThreshold) || parsedThreshold < 0 || parsedThreshold > 99) {
+                throw new Error(`Invalid threshold: ${threshold}`);
             }
+            
+            // FIX: Use a safe query operator instead of raw JavaScript evaluation
             return {
-                userId: parsedUserId
+                userId: parsedUserId,
+                stocks: { $gt: parsedThreshold }
             };
+        }
+        return {
+            userId: parsedUserId
         };
+    };
 
-        allocationsCol.find(searchCriteria()).toArray((err, allocations) => {
-            if (err) return callback(err, null);
-            if (!allocations.length) return callback("ERROR: No allocations found for the user", null);
+    allocationsCol.find(searchCriteria()).toArray((err, allocations) => {
+        if (err) return callback(err, null);
+        if (!allocations.length) return callback("ERROR: No allocations found for the user", null);
 
-            let doneCounter = 0;
-            const userAllocations = [];
+        let doneCounter = 0;
+        const userAllocations = [];
 
-            allocations.forEach( alloc => {
-                userDAO.getUserById(alloc.userId, (err, user) => {
-                    if (err) return callback(err, null);
+        allocations.forEach(alloc => {
+            userDAO.getUserById(alloc.userId, (err, user) => {
+                if (err) return callback(err, null);
 
-                    alloc.userName = user.userName;
-                    alloc.firstName = user.firstName;
-                    alloc.lastName = user.lastName;
+                alloc.userName = user.userName;
+                alloc.firstName = user.firstName;
+                alloc.lastName = user.lastName;
 
-                    doneCounter += 1;
-                    userAllocations.push(alloc);
+                doneCounter += 1;
+                userAllocations.push(alloc);
 
-                    if (doneCounter === allocations.length) {
-                        callback(null, userAllocations);
-                    }
-                });
+                if (doneCounter === allocations.length) {
+                    callback(null, userAllocations);
+                }
             });
         });
-    };
+    });
+};
 
 };
 

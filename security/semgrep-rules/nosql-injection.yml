@@ -1,0 +1,11 @@
+rules:
+  - id: nodegoat-nosql-where-injection
+    languages: [javascript]
+    message: NoSQL injection - user input interpolated into MongoDB $where expression
+    severity: ERROR
+    pattern-regex: '[$]where'
+    metadata:
+      cwe: "CWE-943"
+      owasp: "A03:2021 - Injection"
+      confidence: HIGH
+      category: security
