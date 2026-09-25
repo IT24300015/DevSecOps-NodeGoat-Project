@@ -7,25 +7,38 @@ const session = require("express-session");
 // const csrf = require('csurf');
 const consolidate = require("consolidate"); // Templating library adapter for Express
 const swig = require("swig");
-// const helmet = require("helmet");
+const helmet = require("helmet");
 const MongoClient = require("mongodb").MongoClient; // Driver for connecting to MongoDB
 const http = require("http");
 const marked = require("marked");
-//const nosniff = require('dont-sniff-mimetype');
+const nosniff = require('dont-sniff-mimetype');
 const app = express(); // Web framework to handle routing requests
 const routes = require("./app/routes");
 const { port, db, cookieSecret } = require("./config/config"); // Application config properties
-/*
-// Fix for A6-Sensitive Data Exposure
-// Load keys for establishing secure HTTPS connection
-const fs = require("fs");
-const https = require("https");
-const path = require("path");
-const httpsOptions = {
-    key: fs.readFileSync(path.resolve(__dirname, "./artifacts/cert/server.key")),
-    cert: fs.readFileSync(path.resolve(__dirname, "./artifacts/cert/server.crt"))
-};
-*/
+// Fix for A5 - Security MisConfig
+// Remove default x-powered-by response header
+app.disable("x-powered-by");
+
+// Prevent opening page in frame or iframe to protect from clickjacking
+app.use(helmet.frameguard());
+
+// Prevents browser from caching and storing page
+app.use(helmet.noCache());
+
+// Allow loading resources only from white-listed domains
+app.use(helmet.contentSecurityPolicy());
+
+// Allow communication only on HTTPS
+app.use(helmet.hsts());
+
+// Forces browser to only use the Content-Type set in the response header instead of sniffing or guessing it
+// Additional security headers not provided by helmet v2
+app.use((req, res, next) => {
+    res.setHeader("Referrer-Policy", "no-referrer");
+    res.setHeader("Permissions-Policy", "geolocation=(), microphone=(), camera=()");
+    res.setHeader("Strict-Transport-Security", "max-age=15552000; includeSubDomains");
+    next();
+});
 
 MongoClient.connect(db, (err, db) => {
     if (err) {
