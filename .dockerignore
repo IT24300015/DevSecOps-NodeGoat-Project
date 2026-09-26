@@ -1,6 +1,49 @@
-Dockerfile
-docker-compose.yml
-.dockerignore
+# Dependencies
+node_modules
+
+# Logs and debug
+npm-debug.log*
+*.log
+
+# Git and CI
 .git
-.github
 .gitignore
+.github
+
+# Documentation and evidence
+docs
+evidence
+*.md
+!README.md
+
+# Environment and secrets
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Scanner outputs
+gitleaks-*.json
+gitleaks-*.xml
+semgrep-*.json
+semgrep-*.sarif
+trivy-*.csv
+trivy-*.json
+zap-*.html
+zap-*.xml
+report*.html
+
+# Test outputs
+test/e2e/screenshots
+test/e2e/videos
+coverage
+.nyc_output
+
+# IDE
+.idea
+.vscode
+*.swp
+
+# Backup folders
+*-backup*
