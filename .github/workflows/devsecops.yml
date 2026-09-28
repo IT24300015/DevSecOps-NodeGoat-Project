@@ -32,7 +32,7 @@ jobs:
           node -c server.js
           echo "✓ server.js syntax OK"
 
-    # ============================================
+  # ============================================
   # GATE 2: SAST (Semgrep)
   # ============================================
   sast:
@@ -58,7 +58,7 @@ jobs:
               --exclude "zap-*.html" \
               /src
         continue-on-error: false
-        
+
   # ============================================
   # GATE 3: Dependency Scanning (npm audit)
   # ============================================
@@ -125,6 +125,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
           ignore-unfixed: true
+          trivyignores: '.trivyignore'
         continue-on-error: false
 
   # ============================================
