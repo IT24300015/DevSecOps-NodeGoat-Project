@@ -47,3 +47,25 @@ coverage
 
 # Backup folders
 *-backup*
+
+# Secrets and private keys (never bake into image)
+artifacts/cert/*.key
+artifacts/cert/*.pem
+*.pem
+*.key
+
+# Environment files with secrets
+.env
+.env.*
+
+# Scan outputs (recursive leak prevention)
+evidence/
+zap-*.html
+zap-*.xml
+gitleaks-*.json
+gitleaks-*.xml
+semgrep-*.json
+semgrep-*.sarif
+trivy-*.csv
+trivy-*.json
+*.sarif
