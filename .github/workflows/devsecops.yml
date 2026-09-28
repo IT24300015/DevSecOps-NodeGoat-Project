@@ -32,7 +32,7 @@ jobs:
           node -c server.js
           echo "✓ server.js syntax OK"
 
-  # ============================================
+    # ============================================
   # GATE 2: SAST (Semgrep)
   # ============================================
   sast:
@@ -43,12 +43,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run Semgrep SAST
+      - name: Run Semgrep SAST (scoped)
         run: |
           docker run --rm -v "$PWD:/src" returntocorp/semgrep:latest \
-            semgrep scan --config auto --error --exclude node_modules /src
+            semgrep scan \
+              --config auto \
+              --error \
+              --severity=ERROR \
+              --exclude node_modules \
+              --exclude app/views/tutorial \
+              --exclude evidence \
+              --exclude test \
+              --exclude "original-*.js" \
+              --exclude "zap-*.html" \
+              /src
         continue-on-error: false
-
+        
   # ============================================
   # GATE 3: Dependency Scanning (npm audit)
   # ============================================

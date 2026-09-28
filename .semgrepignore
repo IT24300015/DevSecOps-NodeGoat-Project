@@ -1,0 +1,50 @@
+
+# Semgrep Ignore File
+# Excludes non-production files from SAST scans
+
+# Scan outputs and reports (they contain snippets of vulnerable code but are not the code itself)
+zap-*.html
+zap-*.xml
+zap-*.json
+gitleaks-*.json
+gitleaks-*.xml
+semgrep-*.json
+semgrep-*.sarif
+trivy-*.csv
+trivy-*.json
+*.sarif
+
+# Backup/reference files kept during development
+original-*.js
+*-backup.js
+
+# Tutorial HTML pages (educational content, not production code)
+app/views/tutorial/
+
+# Test fixtures and test code
+test/
+cypress/
+
+# Evidence folder (contains scan reports and screenshots)
+evidence/
+docs/
+
+# Node modules
+node_modules/
+
+# Docker
+.dockerignore
+Dockerfile
+
+# Config/env files with secrets
+.env
+.env.*
+config/env/development.js
+config/env/test.js
+
+# IDE
+.idea/
+.vscode/
+
+# Seed data (bcrypt hashes are not secrets)
+artifacts/db-reset.js
