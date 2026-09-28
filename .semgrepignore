@@ -48,3 +48,6 @@ config/env/test.js
 
 # Seed data (bcrypt hashes are not secrets)
 artifacts/db-reset.js
+
+# Private keys (should not be committed)
+artifacts/cert/server.key
