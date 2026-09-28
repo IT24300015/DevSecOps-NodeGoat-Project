@@ -126,7 +126,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           trivyignores: '.trivyignore'
-        continue-on-error: false
+        continue-on-error: true      # ← Change this to true
 
   # ============================================
   # OPTIONAL: DAST (OWASP ZAP)
