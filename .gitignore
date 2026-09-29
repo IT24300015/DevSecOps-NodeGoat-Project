@@ -27,5 +27,14 @@ test/e2e/videos/
 .env.local
 .env
 
+# Secrets and private keys
+*.key
+*.pem
+artifacts/cert/*.key
+artifacts/cert/*.pem
+.env.*
+.env.production
+.env.development
+
 # ignore Snyk Code scanner files
 .dccache
