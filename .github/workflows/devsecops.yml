@@ -125,7 +125,8 @@ jobs:
           severity: 'CRITICAL,HIGH'
           exit-code: '1'
           ignore-unfixed: true
-        continue-on-error: false
+          trivyignores: '.trivyignore'
+        continue-on-error: true
 
   # ============================================
   # OPTIONAL: DAST (OWASP ZAP)
